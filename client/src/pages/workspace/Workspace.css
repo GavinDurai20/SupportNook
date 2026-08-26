@@ -1,0 +1,271 @@
+/* =========================================
+   WORKSPACE
+========================================= */
+
+.workspace {
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 58% 42%;
+
+  box-sizing: border-box;
+
+  background: #18191d;
+  color: #e6e7eb;
+
+  overflow: hidden;
+
+  font-family:
+    "Segoe UI",
+    Inter,
+    Arial,
+    sans-serif;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   LEFT - CODE EDITOR
+========================================= */
+
+.workspace-editor {
+  min-width: 0;
+  min-height: 0;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   RIGHT SIDE
+========================================= */
+
+.workspace-right {
+  min-width: 0;
+  min-height: 0;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 10px;
+
+  display: grid;
+
+  /*
+    Chat = slightly smaller
+    Whiteboard = slightly larger
+  */
+  grid-template-rows:
+    minmax(0, 46%)
+    minmax(0, 54%);
+
+  gap: 10px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   CHAT PANEL
+========================================= */
+
+.workspace-chat {
+  min-width: 0;
+  min-height: 0;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border: 1px solid #30323a;
+
+  border-radius: 10px;
+
+  background: #111216;
+}
+
+
+/* =========================================
+   WHITEBOARD PANEL
+========================================= */
+
+.workspace-whiteboard {
+  min-width: 0;
+  min-height: 0;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  border: 1px solid #30323a;
+
+  border-radius: 10px;
+
+  background: #111216;
+}
+
+
+/* =========================================
+   COMMON PANEL FIX
+========================================= */
+
+.workspace-editor > *,
+.workspace-chat > *,
+.workspace-whiteboard > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+
+/* =========================================
+   ERROR PAGE
+========================================= */
+
+.workspace-error {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  background: #18191d;
+
+  color: #e6e7eb;
+
+  font-family:
+    "Segoe UI",
+    Inter,
+    Arial,
+    sans-serif;
+
+  overflow: hidden;
+}
+
+
+.error-card {
+  width: 300px;
+
+  box-sizing: border-box;
+
+  padding: 24px;
+
+  border: 1px solid #30323a;
+
+  border-radius: 10px;
+
+  background: #111216;
+
+  text-align: center;
+}
+
+
+.error-card h2 {
+  margin: 0 0 8px;
+
+  color: #f3f4f6;
+
+  font-size: 19px;
+  font-weight: 600;
+}
+
+
+.error-card p {
+  margin: 0;
+
+  color: #9296a3;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   DESKTOP / LARGE SCREEN
+========================================= */
+
+@media (min-width: 1200px) {
+
+  .workspace {
+    grid-template-columns: 58% 42%;
+  }
+
+  .workspace-right {
+    grid-template-rows:
+      minmax(0, 46%)
+      minmax(0, 54%);
+  }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .workspace {
+    grid-template-columns: 55% 45%;
+  }
+
+  .workspace-right {
+    padding: 8px;
+
+    gap: 8px;
+  }
+
+  .workspace-editor {
+    padding: 8px;
+  }
+}
+
+
+/* =========================================
+   SMALL SCREEN
+========================================= */
+
+@media (max-width: 750px) {
+
+  .workspace {
+    grid-template-columns: 1fr;
+
+    grid-template-rows:
+      50vh
+      50vh;
+
+    height: 100vh;
+  }
+
+  .workspace-editor {
+    height: 50vh;
+
+    padding: 7px;
+  }
+
+  .workspace-right {
+    height: 50vh;
+
+    padding: 7px;
+
+    grid-template-rows:
+      minmax(0, 50%)
+      minmax(0, 50%);
+
+    gap: 7px;
+  }
+} 

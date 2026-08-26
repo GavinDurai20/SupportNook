@@ -1,0 +1,22 @@
+.workspace-center {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.workspace-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.workspace-panel-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b6b6b;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}

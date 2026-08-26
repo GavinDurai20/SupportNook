@@ -1,0 +1,306 @@
+.whiteboard {
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background: #111216;
+  color: #e5e7eb;
+
+  font-family:
+    "Segoe UI",
+    Inter,
+    Arial,
+    sans-serif;
+
+  font-size: 13px;
+}
+
+   /*HEADER*/
+.whiteboard-header {
+  height: 74px;
+  min-height: 74px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  padding: 0 18px;
+
+  border-bottom: 1px solid #30323a;
+
+  background: #111216;
+}
+/* =========================================
+   TITLE
+========================================= */
+
+.whiteboard-title {
+  min-width: 0;
+}
+
+.whiteboard-title h2 {
+  margin: 0;
+
+  color: #f1f2f4;
+
+  font-size: 22px;
+  font-weight: 650;
+
+  line-height: 1.1;
+}
+
+.whiteboard-title p {
+  margin: 5px 0 0;
+
+  color: #8e93a0;
+
+  font-size: 13px;
+  font-weight: 400;
+}
+
+
+/* =========================================
+   LIVE STATUS
+========================================= */
+
+.whiteboard-live {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #4adea0;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.whiteboard-live span {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #4adea0;
+
+  box-shadow:
+    0 0 0 4px rgba(74, 222, 160, 0.08);
+}
+
+
+/* =========================================
+   CANVAS TOOLBAR
+========================================= */
+
+.whiteboard-toolbar {
+  height: 48px;
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+
+  padding: 0 18px;
+
+  border-bottom: 1px solid #30323a;
+
+  background: #111216;
+
+  color: #d5d7dc;
+
+  font-size: 13px;
+}
+
+.whiteboard-toolbar-left {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.whiteboard-toolbar strong {
+  color: #e4e5e8;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.whiteboard-toolbar .live-text {
+  color: #777b87;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   BRUSH CONTROL
+========================================= */
+
+.whiteboard-brush {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #8d929e;
+
+  font-size: 12px;
+}
+
+.whiteboard-brush input[type="range"] {
+  width: 115px;
+
+  height: 4px;
+
+  accent-color: #2f7cf6;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   CANVAS AREA
+========================================= */
+
+.whiteboard-canvas-container {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  padding: 14px;
+
+  overflow: hidden;
+
+  background: #111216;
+}
+
+
+/* =========================================
+   CANVAS
+========================================= */
+
+.whiteboard canvas {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-radius: 7px;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================
+   WHITEBOARD BUTTONS
+========================================= */
+
+.whiteboard button {
+  height: 30px;
+
+  padding: 0 11px;
+
+  border: 1px solid #343740;
+
+  border-radius: 6px;
+
+  background: #202227;
+
+  color: #d9dbe0;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.whiteboard button:hover {
+  background: #2a2d34;
+}
+
+
+/* =========================================
+   REMOVE OLD / UNNECESSARY TOOL UI
+========================================= */
+
+.whiteboard .canvas-title,
+.whiteboard .canvas-label {
+  font-size: 13px;
+}
+
+.whiteboard .extra-controls {
+  display: none;
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.whiteboard-canvas-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.whiteboard-canvas-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.whiteboard-canvas-container::-webkit-scrollbar-thumb {
+  background: #383b44;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================
+   SMALL SCREEN
+========================================= */
+
+@media (max-width: 900px) {
+  .whiteboard-header {
+    padding: 0 12px;
+  }
+
+  .whiteboard-title h2 {
+    font-size: 18px;
+  }
+
+  .whiteboard-toolbar {
+    padding: 0 12px;
+  }
+
+  .whiteboard-brush input[type="range"] {
+    width: 90px;
+  }
+
+  .whiteboard-canvas-container {
+    padding: 10px;
+  }
+}
