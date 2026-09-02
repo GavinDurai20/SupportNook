@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "./Home.css";
 
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000";
+
 function Home({
   onRoomCreated,
   onRoomJoined,
@@ -28,7 +32,7 @@ function Home({
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/rooms",
+        `${API_URL}/api/rooms`,
         {
           method: "POST",
           headers: {
@@ -42,11 +46,15 @@ function Home({
 
       const data = await response.json();
 
-      console.log("CREATE ROOM RESPONSE:", data);
+      console.log(
+        "CREATE ROOM RESPONSE:",
+        data
+      );
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Could not create the room."
+          data.message ||
+            "Could not create the room."
         );
       }
 
@@ -58,8 +66,15 @@ function Home({
 
       const room = data.room;
 
-      console.log("🟢 ROOM CREATED:", room);
-      console.log("🟢 ROOM ID:", room.roomId);
+      console.log(
+        "🟢 ROOM CREATED:",
+        room
+      );
+
+      console.log(
+        "🟢 ROOM ID:",
+        room.roomId
+      );
 
       // Save username
       localStorage.setItem(
@@ -73,8 +88,11 @@ function Home({
         JSON.stringify(room)
       );
 
-      // Tell App.jsx that room was created
-      if (typeof onRoomCreated === "function") {
+      // Tell App.jsx
+      if (
+        typeof onRoomCreated ===
+        "function"
+      ) {
         onRoomCreated(room);
       } else {
         console.error(
@@ -92,6 +110,7 @@ function Home({
         error.message ||
           "Could not create the room."
       );
+
     } finally {
       setLoading(false);
     }
@@ -103,6 +122,7 @@ function Home({
 
   const handleJoinRoom = async () => {
     const trimmedName = name.trim();
+
     const trimmedRoomId = roomId
       .trim()
       .toUpperCase();
@@ -113,7 +133,9 @@ function Home({
     }
 
     if (!trimmedRoomId) {
-      setError("Please enter the room ID.");
+      setError(
+        "Please enter the room ID."
+      );
       return;
     }
 
@@ -127,7 +149,7 @@ function Home({
       );
 
       const response = await fetch(
-        `http://localhost:5000/api/rooms/${trimmedRoomId}`
+        `${API_URL}/api/rooms/${trimmedRoomId}`
       );
 
       const data = await response.json();
@@ -139,7 +161,8 @@ function Home({
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Room not found."
+          data.message ||
+            "Room not found."
         );
       }
 
@@ -173,8 +196,11 @@ function Home({
         JSON.stringify(room)
       );
 
-      // Tell App.jsx that room was joined
-      if (typeof onRoomJoined === "function") {
+      // Tell App.jsx
+      if (
+        typeof onRoomJoined ===
+        "function"
+      ) {
         onRoomJoined(room);
       } else {
         console.error(
@@ -192,6 +218,7 @@ function Home({
         error.message ||
           "Could not join the room."
       );
+
     } finally {
       setLoading(false);
     }
@@ -220,8 +247,6 @@ function Home({
   return (
     <div className="home-page">
 
-      {/* HEADER */}
-
       <header className="home-header">
 
         <div className="home-brand">
@@ -248,11 +273,7 @@ function Home({
 
       </header>
 
-      {/* MAIN */}
-
       <main className="home-main">
-
-        {/* LEFT */}
 
         <section className="home-content">
 
@@ -277,8 +298,6 @@ function Home({
 
         </section>
 
-        {/* RIGHT */}
-
         <section className="room-card">
 
           <div className="room-card-header">
@@ -294,8 +313,6 @@ function Home({
 
           </div>
 
-          {/* NAME */}
-
           <div className="input-group">
 
             <label htmlFor="name">
@@ -308,7 +325,10 @@ function Home({
               placeholder="Enter your name"
               value={name}
               onChange={(event) => {
-                setName(event.target.value);
+                setName(
+                  event.target.value
+                );
+
                 setError("");
               }}
               onKeyDown={handleKeyDown}
@@ -316,8 +336,6 @@ function Home({
             />
 
           </div>
-
-          {/* ROOM ID */}
 
           <div className="input-group">
 
@@ -343,15 +361,11 @@ function Home({
 
           </div>
 
-          {/* ERROR */}
-
           {error && (
             <div className="home-error">
               {error}
             </div>
           )}
-
-          {/* JOIN */}
 
           <button
             type="button"
@@ -364,8 +378,6 @@ function Home({
               : "Enter workspace"}
           </button>
 
-          {/* DIVIDER */}
-
           <div className="home-divider">
 
             <span>
@@ -373,8 +385,6 @@ function Home({
             </span>
 
           </div>
-
-          {/* CREATE */}
 
           <button
             type="button"
@@ -391,22 +401,14 @@ function Home({
 
       </main>
 
-      {/* FOOTER */}
-
       <footer className="home-footer">
 
         <span>Chat</span>
-
         <span>•</span>
-
         <span>Code</span>
-
         <span>•</span>
-
         <span>Canvas</span>
-
         <span>•</span>
-
         <span>Real-time</span>
 
       </footer>
