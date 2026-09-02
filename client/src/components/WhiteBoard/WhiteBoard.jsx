@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import socket from "../../socket";
-import "./Whiteboard.css";
+import "./WhiteBoard.css";
 function Whiteboard({ room }) {
   const canvasRef =
     useRef(null);
