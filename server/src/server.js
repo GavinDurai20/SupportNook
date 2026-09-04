@@ -114,11 +114,7 @@ app.get("/api/judge0/languages", async (req, res) => {
 
 app.post("/api/judge0/run", async (req, res) => {
   try {
-    const {
-      code,
-      languageId,
-      stdin,
-    } = req.body;
+    const { code, languageId, stdin } = req.body;
 
     if (!code || !code.trim()) {
       return res.status(400).json({
@@ -134,14 +130,14 @@ app.post("/api/judge0/run", async (req, res) => {
       });
     }
 
-    console.log("");
     console.log("================================");
     console.log("▶ JUDGE0 RUN");
     console.log("Language ID:", languageId);
     console.log("================================");
 
-    const response = await axios.post(
-      `${JUDGE0_URL}/submissions?wait=true`,
+    // 1. Submit code
+    const submissionResponse = await axios.post(
+      `${JUDGE0_URL}/submissions/?base64_encoded=false&wait=false`,
       {
         source_code: code,
         language_id: Number(languageId),
@@ -154,13 +150,62 @@ app.post("/api/judge0/run", async (req, res) => {
       }
     );
 
-    const result = response.data;
+    const token = submissionResponse.data.token;
 
-    console.log(
-      "Judge0 status:",
-      result.status
-    );
+    if (!token) {
+      return res.status(500).json({
+        success: false,
+        error: "Judge0 did not return a submission token.",
+      });
+    }
 
+    console.log("Judge0 token:", token);
+
+    // 2. Poll Judge0
+    let result;
+
+    for (let attempt = 0; attempt < 30; attempt++) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const resultResponse = await axios.get(
+        `${JUDGE0_URL}/submissions/${token}?base64_encoded=false`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      result = resultResponse.data;
+
+      console.log(
+        "Judge0 status:",
+        result.status?.description
+      );
+
+      // 3. Finished?
+      if (
+        result.status &&
+        result.status.id >= 3
+      ) {
+        break;
+      }
+    }
+
+    // 4. Still processing
+    if (
+      !result ||
+      !result.status ||
+      result.status.id === 1 ||
+      result.status.id === 2
+    ) {
+      return res.status(504).json({
+        success: false,
+        error: "Judge0 execution timed out.",
+      });
+    }
+
+    // 5. Return result
     res.json({
       success: true,
 
@@ -185,14 +230,12 @@ app.post("/api/judge0/run", async (req, res) => {
     });
 
   } catch (error) {
-
     console.error(
       "❌ Judge0 execution error:",
       error.message
     );
 
     if (error.response) {
-
       console.error(
         "Judge0 response:",
         error.response.data
@@ -202,7 +245,6 @@ app.post("/api/judge0/run", async (req, res) => {
         error.response.status || 500
       ).json({
         success: false,
-
         error:
           error.response.data?.message ||
           error.response.data?.error ||
@@ -210,9 +252,8 @@ app.post("/api/judge0/run", async (req, res) => {
       });
     }
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
-
       error:
         error.message ||
         "Could not connect to Judge0",
