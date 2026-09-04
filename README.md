@@ -1,36 +1,71 @@
 # SupportNook
 
-> A real-time collaborative workspace for support teams to communicate, code, and share ideas in one place.
+## 📌 Purpose
 
-## Overview
+**SupportNook** is a real-time collaborative support workspace that allows multiple users to work together in the same room.
 
-SupportNook is a full-stack real-time collaboration platform that combines:
+It provides:
 
-- Real-time chat
-- Collaborative code editor
-- Multi-language code execution using Judge0
-- Real-time collaborative whiteboard
-- Room-based collaboration
-- WebSocket-based synchronization
+- 💬 Real-time Chat
+- 💻 Collaborative Code Editor
+- ▶️ Multi-language Code Execution using Judge0
+- 🎨 Real-time Collaborative Whiteboard
+- 🔗 Room-based collaboration
+---
+## 🛠️ Tech Stack
 
-## Architecture
+- **Frontend:** React, Vite
+- **Backend:** Node.js, Express.js, Socket.IO
+- **Database:** MongoDB
+- **Code Execution:** Judge0
+- **Deployment:** Vercel, Render
+- **Containerization:** Docker & Docker Compose
+---
+## 🏗️ Architecture
 
-```text
-                 ┌─────────────────────┐
-                 │      Vercel         │
-                 │   React + Vite      │
-                 └──────────┬──────────┘
-                            │
-                 REST API + WebSocket
-                            │
-                 ┌──────────▼──────────┐
-                 │       Render        │
-                 │ Node.js + Express   │
-                 │     Socket.IO       │
-                 └──────┬───────┬──────┘
-                        │       │
-              ┌─────────▼─┐   ┌─▼─────────┐
-              │ MongoDB   │   │  Judge0   │
-              │  Atlas    │   │ Code Exec │
-              └───────────┘   └───────────┘
+                         SUPPORTNOOK
+                Real-Time Collaboration Platform
+                              │
+             ┌────────────────┴────────────────┐
+             │                                 │
+             ▼                                 ▼
+      ┌──────────────┐                  ┌──────────────┐
+      │   FRONTEND   │                  │    BACKEND   │
+      │              │                  │              │
+      │ React + Vite │◄──── Socket ────►│ Node.js      │
+      │              │                  │ Express      │
+      │              │                  │ Socket.IO    │
+      └──────┬───────┘                  └──────┬───────┘
+             │                                 │
+             │                                 ├──────────────┐
+             │                                 │              │
+             │                                 ▼              ▼
+             │                          ┌────────────┐ ┌────────────┐
+             │                          │  MongoDB   │ │   Judge0   │
+             │                          │  Database  │ │ Code Runner│
+             │                          └────────────┘ └────────────┘
+             │
+             ▼
+    ┌─────────────────────────────────────────────┐
+    │              SUPPORTNOOK FEATURES           │
+    │                                             │
+    │    Real-Time Chat                         │
+    │    Collaborative Code Editor               │
+    │    Multi-Language Code Execution           │
+    │    Collaborative Whiteboard                │
+    │    Room-Based Collaboration                │
+    └─────────────────────────────────────────────┘
 
+
+             DOCKERIZED LOCAL ENVIRONMENT
+
+    ┌─────────────────────────────────────────────┐
+    │              Docker Compose                 │
+    │                                             │
+    │   ┌──────────┐   ┌──────────┐   ┌────────┐ │
+    │   │ Frontend │   │ Backend  │   │ MongoDB│ │
+    │   │  Nginx   │   │ Node.js  │   │        │ │
+    │   │  :5173   │   │  :5000   │   │ :27017 │ │
+    │   └──────────┘   └──────────┘   └────────┘ │
+    │                                             │
+    └─────────────────────────────────────────────┘
