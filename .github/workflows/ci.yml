@@ -77,3 +77,48 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+
+  docker:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    needs:
+      - backend
+      - frontend
+
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set image owner
+        run: echo "IMAGE_OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
+
+      - name: Build and push server image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./server
+          push: true
+          tags: |
+            ghcr.io/${{ env.IMAGE_OWNER }}/supportnook-server:latest
+            ghcr.io/${{ env.IMAGE_OWNER }}/supportnook-server:${{ github.sha }}
+
+      - name: Build and push client image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./client
+          push: true
+          tags: |
+            ghcr.io/${{ env.IMAGE_OWNER }}/supportnook-client:latest
+            ghcr.io/${{ env.IMAGE_OWNER }}/supportnook-client:${{ github.sha }}
