@@ -371,15 +371,15 @@ http://localhost:3001
 
 ### 11.3 Docker Compose Environment
 
-![Docker Compose](docs/images/docker-compose.png)
+![Docker Compose Environment](docs/images/docker-compose.png)
 
 ### 11.4 Prometheus Target Health
 
-![Prometheus Targets](docs/images/prometheus-targets.png)
+![Prometheus Target Health](docs/images/prometheus-targets.png)
 
 ### 11.5 Grafana Monitoring Dashboard
 
-![Grafana Dashboard](docs/images/grafana-dashboard.png)
+![Grafana Monitoring Dashboard](docs/images/grafana-dashboard.png)
 
 ---
 
